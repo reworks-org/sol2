@@ -27,11 +27,13 @@
 #include <sol/state_view.hpp>
 #include <sol/thread.hpp>
 
+inline lua_State* sol_lua_newstate(lua_Alloc f, void* ud, [[maybe_unused]] unsigned seed = 0) {
 #if LUA_VERSION_NUM >= 505
-#  define sol_lua_newstate(f, ud) lua_newstate(f, ud, 0)
+	return ::lua_newstate(f, ud, seed);
 #else
-#  define sol_lua_newstate(f, ud) lua_newstate(f, ud)
+	return ::lua_newstate(f, ud);
 #endif
+}
 
 namespace sol {
 
